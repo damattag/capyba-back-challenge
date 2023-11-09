@@ -25,12 +25,11 @@ class UserController {
     }
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  async read(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const data = UserUpdateSchema.parse(req.body);
 
-      const user = await UserRepository.update(id, data);
+      const user = await UserRepository.findById(id);
 
       if (!user) {
         throw createHttpError(404, "Usuário não encontrado.");
@@ -38,7 +37,54 @@ class UserController {
 
       res.status(200).json({
         data: user,
+        message: "Usuário encontrado com sucesso.",
+      });
+
+      return next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = UserUpdateSchema.parse(req.body);
+
+      const userExists = await UserRepository.findById(id);
+
+      if (!userExists) {
+        throw createHttpError(404, "Usuário não encontrado.");
+      }
+
+      const user = await UserRepository.update(id, data);
+
+      res.status(200).json({
+        data: user,
         message: "Usuário atualizado com sucesso.",
+      });
+
+      return next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const userExists = await UserRepository.findById(id);
+
+      if (!userExists) {
+        throw createHttpError(404, "Usuário não encontrado.");
+      }
+
+      const user = await UserRepository.delete(id);
+
+      res.status(200).json({
+        data: user,
+        message: "Usuário deletado com sucesso.",
       });
 
       return next();
