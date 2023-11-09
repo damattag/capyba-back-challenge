@@ -13,4 +13,6 @@ UserRouter.route("/:id")
   .get([auth], UserController.read)
   .delete([auth], UserController.delete);
 
+UserRouter.route("/verify-email").patch([auth], UserController.verifyEmail);
+
 export default UserRouter;

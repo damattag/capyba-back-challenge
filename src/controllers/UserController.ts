@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { hash } from "bcryptjs";
 import createHttpError from "http-errors";
 
-import { UserSchema, UserUpdateSchema } from "../DTO";
+import {
+  UserEmailVerificationSchema,
+  UserSchema,
+  UserUpdateSchema,
+} from "../DTOs";
 import { UserRepository } from "../repositories";
 
 class UserController {
@@ -117,6 +121,58 @@ class UserController {
       res.status(200).json({
         data: user,
         message: "Usuário deletado com sucesso.",
+      });
+
+      return next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async verifyEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, token } = UserEmailVerificationSchema.parse(req.body);
+
+      const user = await UserRepository.findByEmail(email);
+
+      if (!user) {
+        throw createHttpError(404, "Usuário não encontrado.");
+      }
+
+      if (user.emailVerified) {
+        throw createHttpError(400, "O e-mail já foi verificado.");
+      }
+
+      const isTokenValid = user.emailVerifyToken === token;
+
+      if (!isTokenValid) {
+        throw createHttpError(400, "O token é inválido.");
+      }
+
+      if (!user.emailVerifyExpiry) {
+        throw createHttpError(
+          401,
+          "Não foi solicitada uma verificação de e-mail para este usuário.",
+        );
+      }
+
+      const now = new Date();
+
+      const isTokenExpired = now > user.emailVerifyExpiry;
+
+      if (isTokenExpired) {
+        throw createHttpError(400, "O token expirou.");
+      }
+
+      const updatedUser = await UserRepository.update(user.id, {
+        emailVerified: true,
+        emailVerifyToken: null,
+        emailVerifyExpiry: null,
+      });
+
+      res.status(200).json({
+        data: updatedUser,
+        message: "E-mail verificado com sucesso.",
       });
 
       return next();

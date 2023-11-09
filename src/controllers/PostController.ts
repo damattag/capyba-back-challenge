@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 
-import { PostSchema, PostUpdateSchema } from "../DTO";
+import { PostSchema, PostUpdateSchema, PostGetSchema } from "../DTOs";
 import { PostRepository } from "../repositories";
-import { PostGetSchema } from "../DTO/Post";
 
 class PostController {
   async create(req: Request, res: Response, next: NextFunction) {

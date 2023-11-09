@@ -16,16 +16,18 @@ enum Role {
 }
 
 model User {
-  id            String           @id @default(uuid())
-  name          String
-  email         String           @unique
-  password      String
-  image         String
-  acceptedTerms Boolean          @map("accepted_terms")
-  emailVerified Boolean          @default(false) @map("email_verified")
-  role          Role             @default(USER)
-  Post          Post[]
-  favorited     FavoritedPosts[]
+  id                String           @id @default(uuid())
+  name              String
+  email             String           @unique
+  password          String
+  image             String
+  acceptedTerms     Boolean          @map("accepted_terms")
+  emailVerified     Boolean          @default(false) @map("email_verified")
+  emailVerifyToken  String?          @map("email_verify_token")
+  emailVerifyExpiry DateTime?        @map("email_verify_expiry")
+  role              Role             @default(USER)
+  Post              Post[]
+  favorited         FavoritedPosts[]
 
   @@map("users")
 }

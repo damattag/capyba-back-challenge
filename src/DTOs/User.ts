@@ -24,3 +24,13 @@ export const UserUpdateSchema = UserSchema.partial().omit({
   acceptedTerms: true,
   role: true,
 });
+
+export const UserEmailVerificationSchema = z.object({
+  email: z
+    .string({ required_error: "O e-mail é obrigatório." })
+    .email({ message: "O e-mail é inválido." }),
+  token: z
+    .string({ required_error: "O token é obrigatório." })
+    .min(6, { message: "O token deve ter 6 caracteres." })
+    .max(6, { message: "O token deve ter 6 caracteres." }),
+});

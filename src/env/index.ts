@@ -6,6 +6,9 @@ const envSchema = z.object({
 
   JWT_SECRET: z.string(),
 
+  EMAIL: z.string(),
+  EMAIL_PASSWORD: z.string(),
+
   DATABASE_URL: z.string(),
 });
 
