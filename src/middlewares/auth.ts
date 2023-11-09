@@ -11,15 +11,17 @@ export default async function auth(
     const authToken = req.headers.authorization;
 
     if (!authToken) {
-      createHttpError(401, "Token não encontrado.");
-    } else {
-      const [, token] = authToken.split(" ");
-
-      jwt.verify(token, process.env.JWT_SECRET as string);
-
-      next();
+      throw createHttpError(401, "Token não encontrado.");
     }
-  } catch (error: any) {
-    res.status(401).send({ error: error.message });
+
+    const decoded = jwt.verify(authToken, process.env.JWT_SECRET as string);
+
+    if (typeof decoded === "string") {
+      throw createHttpError(401, "Token inválido.");
+    }
+
+    return next();
+  } catch (error) {
+    return next(error);
   }
 }

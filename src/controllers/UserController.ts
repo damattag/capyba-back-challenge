@@ -63,6 +63,21 @@ class UserController {
     }
   }
 
+  async readAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await UserRepository.findAll();
+
+      res.status(200).json({
+        data: users,
+        message: "Usuários encontrados com sucesso.",
+      });
+
+      return next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;

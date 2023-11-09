@@ -51,7 +51,6 @@ class AuthController {
       delete req.headers.authorization;
 
       res.status(204).json({
-        data: null,
         message: "Logout realizado com sucesso.",
       });
 
