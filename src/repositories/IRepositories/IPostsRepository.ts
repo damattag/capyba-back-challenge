@@ -7,15 +7,24 @@ export interface IPostsRepository {
     text: string,
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }>;
   findAll(
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }>;
   findByUser(
     userId: string,
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }>;
   update(
     id: string,

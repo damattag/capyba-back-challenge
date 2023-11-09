@@ -26,7 +26,9 @@ class PostController {
   async readByUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { page, limit } = PostGetSchema.parse(req.query);
+      const { page, limit, isDraft, order, orderField } = PostGetSchema.parse(
+        req.query,
+      );
 
       const userExists = await PostRepository.findById(id);
 
@@ -34,7 +36,14 @@ class PostController {
         throw createHttpError(404, "Usuário não encontrado.");
       }
 
-      const { count, posts } = await PostRepository.findByUser(id, page, limit);
+      const { count, posts } = await PostRepository.findByUser(
+        id,
+        page,
+        limit,
+        isDraft,
+        orderField,
+        order,
+      );
 
       res.status(200).json({
         data: {
@@ -73,11 +82,19 @@ class PostController {
 
   async readAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const { search, page, limit } = PostGetSchema.parse(req.query);
+      const { search, page, limit, isDraft, order, orderField } =
+        PostGetSchema.parse(req.query);
 
       const { posts, count } = search
-        ? await PostRepository.findByText(search, page, limit)
-        : await PostRepository.findAll(page, limit);
+        ? await PostRepository.findByText(
+            search,
+            page,
+            limit,
+            isDraft,
+            orderField,
+            order,
+          )
+        : await PostRepository.findAll(page, limit, isDraft, orderField, order);
 
       res.status(200).json({
         data: {

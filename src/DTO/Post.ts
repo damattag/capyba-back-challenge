@@ -31,4 +31,31 @@ export const PostGetSchema = z.object({
     .int({ message: "O limite deve ser um número inteiro." })
     .min(1, { message: "O limite deve ser maior que 0." })
     .default(5),
+  isDraft: z
+    .boolean({
+      invalid_type_error: "O status de publicação deve ser um booleano.",
+    })
+    .optional(),
+  orderField: z
+    .enum(
+      [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "title",
+        "content",
+        "published",
+        "authorId",
+      ],
+      {
+        invalid_type_error:
+          "O campo de ordenação deve ser 'id', 'createdAt', 'updatedAt', 'title', 'content', 'published' ou 'authorId'.",
+      },
+    )
+    .optional(),
+  order: z
+    .enum(["asc", "desc"], {
+      invalid_type_error: "A ordenação deve ser 'asc' ou 'desc'.",
+    })
+    .optional(),
 });

@@ -10,9 +10,9 @@ This repository is intended for the Capyba Software challenge
 [x] Logout;
 
 ## 2. Área para pessoas logadas
-[] Lista paginada de itens públicos;
-[] Lista deve retornar os objetos da pagina e o total de objetos;
-[] Busca por texto;
+[x] Lista paginada de itens públicos;
+[x] Lista deve retornar os objetos da pagina e o total de objetos;
+[x] Busca por texto;
 [] Filtragem por um campo do model;
 
 ## 3. Meu perfil

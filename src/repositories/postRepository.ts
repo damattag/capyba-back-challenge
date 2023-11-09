@@ -25,10 +25,23 @@ class PostRepository implements IPostsRepository {
     userId: string,
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
       where: {
-        authorId: userId,
+        AND: [
+          {
+            authorId: userId,
+          },
+          {
+            published: isDraft || false,
+          },
+        ],
+      },
+      orderBy: {
+        [orderField || "createdAt"]: order || "desc",
       },
       skip: (page - 1) * limit,
       take: limit,
@@ -36,7 +49,14 @@ class PostRepository implements IPostsRepository {
 
     const count = await prisma.post.count({
       where: {
-        authorId: userId,
+        AND: [
+          {
+            authorId: userId,
+          },
+          {
+            published: isDraft || false,
+          },
+        ],
       },
     });
 
@@ -47,15 +67,36 @@ class PostRepository implements IPostsRepository {
     search: string,
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
       where: {
-        content: {
-          contains: search,
-        },
-        title: {
-          contains: search,
-        },
+        AND: [
+          {
+            published: isDraft || false,
+          },
+          {
+            OR: [
+              {
+                content: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+              {
+                title: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      orderBy: {
+        [orderField || "createdAt"]: order || "desc",
       },
       skip: (page - 1) * limit,
       take: limit,
@@ -63,12 +104,27 @@ class PostRepository implements IPostsRepository {
 
     const count = await prisma.post.count({
       where: {
-        content: {
-          contains: search,
-        },
-        title: {
-          contains: search,
-        },
+        AND: [
+          {
+            published: isDraft || false,
+          },
+          {
+            OR: [
+              {
+                content: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+              {
+                title: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+            ],
+          },
+        ],
       },
     });
 
@@ -78,13 +134,26 @@ class PostRepository implements IPostsRepository {
   async findAll(
     page: number,
     limit: number,
+    isDraft?: boolean,
+    orderField?: Prisma.PostScalarFieldEnum,
+    order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
+      where: {
+        published: isDraft,
+      },
+      orderBy: {
+        [orderField || "createdAt"]: order || "desc",
+      },
       skip: (page - 1) * limit,
       take: limit,
     });
 
-    const count = await prisma.post.count();
+    const count = await prisma.post.count({
+      where: {
+        published: isDraft,
+      },
+    });
 
     return { posts, count };
   }
