@@ -16,16 +16,16 @@ enum Role {
 }
 
 model User {
-  id            String  @id @default(uuid())
+  id            String           @id @default(uuid())
   name          String
-  email         String  @unique
+  email         String           @unique
   password      String
   image         String
-  acceptedTerms Boolean @map("accepted_terms")
-  emailVerified Boolean @default(false) @map("email_verified")
-  role          Role    @default(USER)
+  acceptedTerms Boolean          @map("accepted_terms")
+  emailVerified Boolean          @default(false) @map("email_verified")
+  role          Role             @default(USER)
   Post          Post[]
-  favorited     Post[]  @relation("UserFavoritedPost")
+  favorited     FavoritedPosts[]
 
   @@map("users")
 }
@@ -38,9 +38,19 @@ model Post {
   content   String
   published Boolean  @default(false)
 
-  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId String? @map("author_id")
-  User     User[]  @relation("UserFavoritedPost")
+  author   User?            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String?          @map("author_id")
+  User     FavoritedPosts[]
 
   @@map("posts")
+}
+
+model FavoritedPosts {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String @map("post_id")
+
+  @@id([userId, postId])
+  @@map("favorited_posts")
 }

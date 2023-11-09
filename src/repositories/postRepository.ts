@@ -21,38 +21,59 @@ class PostRepository implements IPostsRepository {
     return post;
   }
 
-  async findByTitle(title: string): Promise<Post[]> {
+  async findByUser(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<Post[]> {
     const posts = await prisma.post.findMany({
       where: {
-        title,
+        authorId: userId,
       },
+      skip: (page - 1) * limit,
+      take: limit,
     });
 
     return posts;
   }
 
-  async findByContent(content: string): Promise<Post[]> {
+  async findByText(
+    search: string,
+    page: number,
+    limit: number,
+  ): Promise<Post[]> {
     const posts = await prisma.post.findMany({
       where: {
-        content,
+        content: {
+          contains: search,
+        },
+        title: {
+          contains: search,
+        },
       },
+      skip: (page - 1) * limit,
+      take: limit,
     });
 
     return posts;
   }
 
-  async findAll() {
-    const posts = await prisma.post.findMany();
+  async findAll(page: number, limit: number): Promise<Post[]> {
+    const posts = await prisma.post.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
 
     return posts;
   }
 
   async update(
+    id: string,
     data: Prisma.PostUncheckedUpdateWithoutAuthorInput,
   ): Promise<Post> {
     const post = await prisma.post.update({
       where: {
-        id: data.id as string,
+        id,
       },
       data,
     });
@@ -71,4 +92,4 @@ class PostRepository implements IPostsRepository {
   }
 }
 
-export default PostRepository;
+export default new PostRepository();

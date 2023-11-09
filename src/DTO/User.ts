@@ -12,7 +12,11 @@ export const UserSchema = z.object({
     .regex(/[0-9]/, { message: "A senha deve ter pelo menos um número." }),
   image: z.string({ required_error: "A imagem é obrigatória." }),
   acceptedTerms: z.boolean({ required_error: "Os termos são obrigatórios." }),
-  role: z.enum(["USER", "ADMIN"]).default("USER"),
+  role: z
+    .enum(["USER", "ADMIN"], {
+      invalid_type_error: "O cargo deve ser USER ou ADMIN.",
+    })
+    .default("USER"),
 });
 
 export const UserUpdateSchema = UserSchema.partial().omit({
