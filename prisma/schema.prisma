@@ -17,6 +17,7 @@ model User {
   password      String
   image         String
   acceptedTerms Boolean @map("accepted_terms")
+  emailVerified Boolean @default(false) @map("email_verified")
 
   @@map("users")
 }

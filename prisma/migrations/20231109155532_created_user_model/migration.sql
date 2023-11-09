@@ -5,7 +5,8 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "accepted_terms" BOOLEAN NOT NULL DEFAULT false,
+    "accepted_terms" BOOLEAN NOT NULL,
+    "email_verified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
