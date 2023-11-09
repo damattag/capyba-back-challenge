@@ -6,8 +6,8 @@ This repository is intended for the Capyba Software challenge
 ## 1. Login e cadastro
 [x] Cadastro de usuário;
 [x] Termos de uso;
-[] Login;
-[] Logout;
+[x] Login;
+[x] Logout;
 
 ## 2. Área para pessoas logadas
 [] Lista paginada de itens públicos;
@@ -16,7 +16,7 @@ This repository is intended for the Capyba Software challenge
 [] Filtragem por um campo do model;
 
 ## 3. Meu perfil
-[] editar usuário;
+[x] editar usuário;
 
 ## 4. Confirmação de email
 [] envio do token via email;

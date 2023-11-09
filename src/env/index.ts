@@ -4,6 +4,8 @@ const envSchema = z.object({
   SERVER_PORT: z.coerce.number(),
   NODE_ENV: z.enum(["development", "production", "test"]),
 
+  JWT_SECRET: z.string(),
+
   DATABASE_URL: z.string(),
 });
 

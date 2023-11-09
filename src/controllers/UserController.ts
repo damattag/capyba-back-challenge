@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import { hash } from "bcryptjs";
+import createHttpError from "http-errors";
+
 import { UserSchema, UserUpdateSchema } from "../DTO";
 import { UserRepository } from "../repositories";
-import createHttpError from "http-errors";
 
 class UserController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -12,7 +14,22 @@ class UserController {
         throw createHttpError(400, "Você precisa aceitar os termos.");
       }
 
-      const user = await UserRepository.create(data);
+      const alreadyExistsUserWithSameEmail = await UserRepository.findByEmail(
+        data.email,
+      );
+
+      if (alreadyExistsUserWithSameEmail) {
+        throw createHttpError(
+          400,
+          "Já existe um usuário cadastrado com esse e-mail.",
+        );
+      }
+
+      const hashedPassword = await hash(data.password, 6);
+
+      const userWithHashedPassword = { ...data, password: hashedPassword };
+
+      const user = await UserRepository.create(userWithHashedPassword);
 
       res.status(201).json({
         data: user,
