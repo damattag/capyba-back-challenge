@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id            String  @id @default(uuid())
   name          String
@@ -18,6 +23,24 @@ model User {
   image         String
   acceptedTerms Boolean @map("accepted_terms")
   emailVerified Boolean @default(false) @map("email_verified")
+  role          Role    @default(USER)
+  Post          Post[]
+  favorited     Post[]  @relation("UserFavoritedPost")
 
   @@map("users")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  title     String
+  content   String
+  published Boolean  @default(false)
+
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String? @map("author_id")
+  User     User[]  @relation("UserFavoritedPost")
+
+  @@map("posts")
 }
