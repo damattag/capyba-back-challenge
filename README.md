@@ -19,8 +19,8 @@ This repository is intended for the Capyba Software challenge
 [x] editar usuário;
 
 ## 4. Confirmação de email
-[] envio do token via email;
-[] validação do token;
+[x] envio do token via email;
+[x] validação do token;
 
 ## 5. Área restrita
 [] lista paginada de itens privados;

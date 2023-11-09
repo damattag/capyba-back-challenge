@@ -26,9 +26,6 @@ export interface IPostsRepository {
     orderField?: Prisma.PostScalarFieldEnum,
     order?: Prisma.SortOrder,
   ): Promise<{ posts: Post[]; count: number }>;
-  update(
-    id: string,
-    data: Prisma.PostUncheckedUpdateWithoutAuthorInput,
-  ): Promise<Post>;
+  update(id: string, data: Prisma.PostUncheckedUpdateInput): Promise<Post>;
   delete(id: string): Promise<Post>;
 }

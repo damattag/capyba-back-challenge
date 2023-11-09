@@ -16,18 +16,20 @@ enum Role {
 }
 
 model User {
-  id                String           @id @default(uuid())
+  id                String    @id @default(uuid())
   name              String
-  email             String           @unique
+  email             String    @unique
   password          String
   image             String
-  acceptedTerms     Boolean          @map("accepted_terms")
-  emailVerified     Boolean          @default(false) @map("email_verified")
-  emailVerifyToken  String?          @map("email_verify_token")
-  emailVerifyExpiry DateTime?        @map("email_verify_expiry")
-  role              Role             @default(USER)
-  Post              Post[]
-  favorited         FavoritedPosts[]
+  acceptedTerms     Boolean   @map("accepted_terms")
+  emailVerified     Boolean   @default(false) @map("email_verified")
+  emailVerifyToken  String?   @map("email_verify_token")
+  emailVerifyExpiry DateTime? @map("email_verify_expiry")
+  role              Role      @default(USER)
+
+  Post Post[]
+
+  Comments Comment[]
 
   @@map("users")
 }
@@ -40,19 +42,29 @@ model Post {
   content   String
   published Boolean  @default(false)
 
-  author   User?            @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId String?          @map("author_id")
-  User     FavoritedPosts[]
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String? @map("author_id")
+
+  Comments Comment[]
 
   @@map("posts")
 }
 
-model FavoritedPosts {
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id")
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String @map("post_id")
+model Comment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  content   String
 
-  @@id([userId, postId])
-  @@map("favorited_posts")
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String? @map("author_id")
+
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String? @map("post_id")
+
+  commentParent   Comment?  @relation("CommentParent", fields: [commentParentId], references: [id], onDelete: Cascade)
+  commentParentId String?   @map("comment_parent_id")
+  Comments        Comment[] @relation("CommentParent")
+
+  @@map("comments")
 }
