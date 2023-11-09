@@ -1,8 +1,10 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Comment } from "@prisma/client";
 
-export interface ICommentsRepository {
+export interface ICommentRepository {
   create: (data: Prisma.CommentUncheckedCreateInput) => Promise<Comment>;
+
   findById: (id: string) => Promise<Comment | null>;
+
   findByPost: (
     postId: string,
     page: number,
@@ -11,6 +13,7 @@ export interface ICommentsRepository {
     orderField?: Prisma.CommentScalarFieldEnum,
     order?: Prisma.SortOrder,
   ) => Promise<{ comments: Comment[]; count: number }>;
+
   findAll: (
     page: number,
     limit: number,
@@ -18,6 +21,7 @@ export interface ICommentsRepository {
     orderField?: Prisma.CommentScalarFieldEnum,
     order?: Prisma.SortOrder,
   ) => Promise<{ comments: Comment[]; count: number }>;
+
   findByUser: (
     userId: string,
     page: number,
@@ -26,6 +30,7 @@ export interface ICommentsRepository {
     orderField?: Prisma.CommentScalarFieldEnum,
     order?: Prisma.SortOrder,
   ) => Promise<{ comments: Comment[]; count: number }>;
+
   findByText: (
     text: string,
     page: number,
@@ -34,9 +39,11 @@ export interface ICommentsRepository {
     orderField?: Prisma.CommentScalarFieldEnum,
     order?: Prisma.SortOrder,
   ) => Promise<{ comments: Comment[]; count: number }>;
+
   update: (
     id: string,
     data: Prisma.CommentUncheckedUpdateInput,
   ) => Promise<Comment>;
+
   delete: (id: string) => Promise<void>;
 }

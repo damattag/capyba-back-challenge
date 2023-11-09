@@ -17,7 +17,7 @@ DROP TABLE "favorited_posts";
 CREATE TABLE "comments" (
     "id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "edited" BOOLEAN NOT NULL DEFAULT false,
     "content" TEXT NOT NULL,
     "author_id" TEXT,
     "post_id" TEXT,

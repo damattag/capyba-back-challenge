@@ -1,8 +1,8 @@
 import { Post, Prisma } from "@prisma/client";
-import { IPostsRepository } from "./IRepositories/IPostsRepository";
+import { IPostRepository } from "./IRepositories";
 import prisma from "../database/client";
 
-class PostRepository implements IPostsRepository {
+class PostRepository implements IPostRepository {
   async create(data: Prisma.PostUncheckedCreateInput): Promise<Post> {
     const post = await prisma.post.create({
       data,
