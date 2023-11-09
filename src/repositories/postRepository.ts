@@ -25,7 +25,7 @@ class PostRepository implements IPostsRepository {
     userId: string,
     page: number,
     limit: number,
-  ): Promise<Post[]> {
+  ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
       where: {
         authorId: userId,
@@ -34,14 +34,20 @@ class PostRepository implements IPostsRepository {
       take: limit,
     });
 
-    return posts;
+    const count = await prisma.post.count({
+      where: {
+        authorId: userId,
+      },
+    });
+
+    return { posts, count };
   }
 
   async findByText(
     search: string,
     page: number,
     limit: number,
-  ): Promise<Post[]> {
+  ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
       where: {
         content: {
@@ -55,16 +61,32 @@ class PostRepository implements IPostsRepository {
       take: limit,
     });
 
-    return posts;
+    const count = await prisma.post.count({
+      where: {
+        content: {
+          contains: search,
+        },
+        title: {
+          contains: search,
+        },
+      },
+    });
+
+    return { posts, count };
   }
 
-  async findAll(page: number, limit: number): Promise<Post[]> {
+  async findAll(
+    page: number,
+    limit: number,
+  ): Promise<{ posts: Post[]; count: number }> {
     const posts = await prisma.post.findMany({
       skip: (page - 1) * limit,
       take: limit,
     });
 
-    return posts;
+    const count = await prisma.post.count();
+
+    return { posts, count };
   }
 
   async update(

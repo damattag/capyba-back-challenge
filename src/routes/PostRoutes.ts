@@ -1,15 +1,18 @@
 import { Router } from "express";
 import { PostController } from "../controllers";
+import { auth } from "../middlewares";
 
 const PostRouter = Router();
 
-PostRouter.route("/").post(PostController.create).get(PostController.readAll);
+PostRouter.route("/")
+  .post([auth], PostController.create)
+  .get([auth], PostController.readAll);
 
 PostRouter.route("/:id")
-  .get(PostController.read)
-  .patch(PostController.update)
-  .delete(PostController.delete);
+  .get([auth], PostController.read)
+  .patch([auth], PostController.update)
+  .delete([auth], PostController.delete);
 
-PostRouter.route("/user/:id").get(PostController.readByUser);
+PostRouter.route("/user/:id").get([auth], PostController.readByUser);
 
 export default PostRouter;

@@ -4,7 +4,9 @@ import { auth } from "../middlewares";
 
 const UserRouter = Router();
 
-UserRouter.route("/").post(UserController.create).get(UserController.readAll);
+UserRouter.route("/")
+  .post(UserController.create)
+  .get([auth], UserController.readAll);
 
 UserRouter.route("/:id")
   .patch([auth], UserController.update)

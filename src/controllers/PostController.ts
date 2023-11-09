@@ -34,10 +34,13 @@ class PostController {
         throw createHttpError(404, "Usuário não encontrado.");
       }
 
-      const posts = await PostRepository.findByUser(id, page, limit);
+      const { count, posts } = await PostRepository.findByUser(id, page, limit);
 
       res.status(200).json({
-        data: posts,
+        data: {
+          posts,
+          count,
+        },
         message: "Posts encontrados com sucesso.",
       });
 
@@ -72,12 +75,15 @@ class PostController {
     try {
       const { search, page, limit } = PostGetSchema.parse(req.query);
 
-      const posts = search
+      const { posts, count } = search
         ? await PostRepository.findByText(search, page, limit)
         : await PostRepository.findAll(page, limit);
 
       res.status(200).json({
-        data: posts,
+        data: {
+          posts,
+          count,
+        },
         message: "Posts encontrados com sucesso.",
       });
 
