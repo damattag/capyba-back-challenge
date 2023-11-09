@@ -4,8 +4,8 @@ This repository is intended for the Capyba Software challenge
 # TASKS
 
 ## 1. Login e cadastro
-[] Cadastro de usuário;
-[] Termos de uso;
+[x] Cadastro de usuário;
+[x] Termos de uso;
 [] Login;
 [] Logout;
 
