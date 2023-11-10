@@ -6,12 +6,16 @@
   "repository": "https://github.com/damattag/capyba-back-challenge.git",
   "author": "damattag <guilherme.damatta@yahoo.com.br>",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node --transpile-only ./prisma/seed.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
     "migration": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev",
     "migration:reset": "cross-env DATABASE_HOST='localhost' yarn prisma migrate reset --force",
+    "migration:no-seed": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev --skip-seed",
     "studio": "cross-env DATABASE_HOST='localhost' yarn prisma studio",
     "generate": "yarn prisma generate"
   },
