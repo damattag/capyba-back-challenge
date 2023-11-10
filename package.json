@@ -11,14 +11,12 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "npx build && node build/server.js",
+    "start": "node build/server.js && yarn prisma migrate deploy",
     "build": "tsup src --out-dir build",
-    "prod": "npx migration:deploy && npx start",
     "migration": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev",
     "seed": "cross-env DATABASE_HOST='localhost' yarn prisma db seed",
     "migration:reset": "cross-env DATABASE_HOST='localhost' yarn prisma migrate reset --force",
     "migration:no-seed": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev --skip-seed",
-    "migration:deploy": "prisma migrate deploy",
     "studio": "cross-env DATABASE_HOST='localhost' yarn prisma studio",
     "generate": "yarn prisma generate"
   },
