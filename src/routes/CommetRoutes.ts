@@ -1,20 +1,26 @@
 import { Router } from "express";
 import { CommentController } from "../controllers";
-import { auth } from "../middlewares";
+import { auth, emailVerify } from "../middlewares";
 
 const CommentRouter = Router();
 
 CommentRouter.route("/")
-  .post([auth], CommentController.create)
-  .get([auth], CommentController.readAll);
+  .post([auth, emailVerify], CommentController.create)
+  .get([auth, emailVerify], CommentController.readAll);
 
 CommentRouter.route("/:id")
-  .get([auth], CommentController.read)
-  .patch([auth], CommentController.update)
-  .delete([auth], CommentController.delete);
+  .get([auth, emailVerify], CommentController.read)
+  .patch([auth, emailVerify], CommentController.update)
+  .delete([auth, emailVerify], CommentController.delete);
 
-CommentRouter.route("/user/:id").get([auth], CommentController.readByUser);
+CommentRouter.route("/user/:id").get(
+  [auth, emailVerify],
+  CommentController.readByUser,
+);
 
-CommentRouter.route("/post/:id").get([auth], CommentController.readByPost);
+CommentRouter.route("/post/:id").get(
+  [auth, emailVerify],
+  CommentController.readByPost,
+);
 
 export default CommentRouter;

@@ -23,10 +23,10 @@ This repository is intended for the Capyba Software challenge
 [x] validação do token;
 
 ## 5. Área restrita
-[] lista paginada de itens privados;
-[] Lista deve retornar os objetos da pagina e o total de objetos;
-[] Busca por texto;
-[] Filtragem por um campo do model;
+[x] lista paginada de itens privados;
+[x] Lista deve retornar os objetos da pagina e o total de objetos;
+[x] Busca por texto;
+[x] Filtragem por um campo do model;
 
 ## Observações
 [] testes unitários;
