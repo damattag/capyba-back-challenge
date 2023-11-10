@@ -30,7 +30,7 @@ export default async function adminVerify(
       throw createHttpError(404, "Usuário não encontrado.");
     }
 
-    if (role !== "admin") {
+    if (role !== "ADMIN") {
       throw createHttpError(
         403,
         "Você não possui permissão para acessar este recurso.",

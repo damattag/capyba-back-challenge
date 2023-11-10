@@ -30,8 +30,8 @@ export const CommentGetSchema = z.object({
     .number({ invalid_type_error: "O limite deve deve ser um número." })
     .int({ message: "O limite deve ser um número inteiro." })
     .min(1, { message: "O limite deve ser maior que 0." })
-    .default(5),
-  isEdited: z
+    .default(50),
+  isEdited: z.coerce
     .boolean({
       invalid_type_error: "O status de edição deve ser um booleano.",
     })

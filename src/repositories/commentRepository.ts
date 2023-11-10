@@ -20,7 +20,7 @@ class CommentRepository implements ICommentRepository {
   ): Promise<{ comments: Comment[]; count: number }> {
     const comments = await prisma.comment.findMany({
       where: {
-        edited: isEdited,
+        edited: isEdited || undefined,
       },
       orderBy: {
         [orderField || "createdAt"]: order || "desc",
@@ -31,7 +31,7 @@ class CommentRepository implements ICommentRepository {
 
     const count = await prisma.comment.count({
       where: {
-        edited: isEdited,
+        edited: isEdited || undefined,
       },
     });
 
@@ -53,7 +53,7 @@ class CommentRepository implements ICommentRepository {
             postId,
           },
           {
-            edited: isEdited,
+            edited: isEdited || undefined,
           },
         ],
       },
@@ -71,7 +71,7 @@ class CommentRepository implements ICommentRepository {
             postId,
           },
           {
-            edited: isEdited,
+            edited: isEdited || undefined,
           },
         ],
       },
@@ -95,7 +95,7 @@ class CommentRepository implements ICommentRepository {
             authorId: userId,
           },
           {
-            edited: isEdited,
+            edited: isEdited || undefined,
           },
         ],
       },
@@ -113,7 +113,7 @@ class CommentRepository implements ICommentRepository {
             authorId: userId,
           },
           {
-            edited: isEdited,
+            edited: isEdited || undefined,
           },
         ],
       },

@@ -36,7 +36,7 @@ class PostRepository implements IPostRepository {
             authorId: userId,
           },
           {
-            published: isDraft || false,
+            published: isDraft || undefined,
           },
         ],
       },
@@ -54,7 +54,7 @@ class PostRepository implements IPostRepository {
             authorId: userId,
           },
           {
-            published: isDraft || false,
+            published: isDraft || undefined,
           },
         ],
       },
@@ -75,7 +75,7 @@ class PostRepository implements IPostRepository {
       where: {
         AND: [
           {
-            published: isDraft || false,
+            published: isDraft || undefined,
           },
           {
             OR: [
@@ -106,7 +106,7 @@ class PostRepository implements IPostRepository {
       where: {
         AND: [
           {
-            published: isDraft || false,
+            published: isDraft || undefined,
           },
           {
             OR: [
