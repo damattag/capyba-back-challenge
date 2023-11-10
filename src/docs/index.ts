@@ -1,3 +1,12 @@
+import { commentSchema, postSchema, userSchema } from "./schemas";
+import {
+  commentPaths,
+  postPaths,
+  userPaths,
+  authPaths,
+  mailPaths,
+} from "./paths";
+
 export default {
   openapi: "3.0.0",
   info: {
@@ -13,10 +22,20 @@ export default {
     },
   ],
 
-  paths: {},
+  paths: {
+    ...commentPaths,
+    ...postPaths,
+    ...userPaths,
+    ...authPaths,
+    ...mailPaths,
+  },
 
   components: {
-    schemas: {},
+    schemas: {
+      user: userSchema,
+      post: postSchema,
+      comment: commentSchema,
+    },
 
     securitySchemes: {
       bearerAuth: {

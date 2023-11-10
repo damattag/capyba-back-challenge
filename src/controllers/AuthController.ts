@@ -40,6 +40,7 @@ class AuthController {
         data: {
           user: loggedUser,
           accessToken,
+          message: "Login realizado com sucesso.",
         },
       });
 

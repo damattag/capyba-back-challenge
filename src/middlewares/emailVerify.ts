@@ -33,7 +33,7 @@ export default async function emailVerify(
     if (!user.emailVerified) {
       throw createHttpError(
         403,
-        "E-mail não verificado, por favor verifique seu e-mail",
+        "E-mail não verificado, por favor verifique seu e-mail.",
       );
     }
 

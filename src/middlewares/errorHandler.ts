@@ -10,7 +10,7 @@ const errorHandler = (
   next: NextFunction,
 ) => {
   let statusCode = 500;
-  let message = "Internal Server Error";
+  let message = "Erro no servidor, tente novamente mais tarde.";
 
   if (err instanceof ZodError) {
     statusCode = 400;
