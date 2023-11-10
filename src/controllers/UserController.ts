@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import createHttpError from "http-errors";
 
 import {
   UserEmailVerificationSchema,
+  UserPasswordResetSchema,
   UserSchema,
   UserUpdateSchema,
 } from "../DTOs";
@@ -93,7 +94,45 @@ class UserController {
         throw createHttpError(404, "Usuário não encontrado.");
       }
 
-      const user = await UserRepository.update(id, data);
+      if (data.email) {
+        const alreadyExistsUserWithSameEmail = await UserRepository.findByEmail(
+          data.email,
+        );
+
+        if (alreadyExistsUserWithSameEmail) {
+          throw createHttpError(
+            400,
+            "Já existe um usuário cadastrado com esse e-mail.",
+          );
+        }
+      }
+
+      if (data.password) {
+        const isSamePassword = await compare(
+          data.password,
+          userExists.password,
+        );
+
+        if (!isSamePassword) {
+          throw createHttpError(400, "A senha atual está incorreta.");
+        }
+      }
+
+      if (data.newPassword === data.password) {
+        throw createHttpError(400, "A senha nova deve ser diferente da atual.");
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { newPassword: _, ...dataWithoutNewPassword } = data;
+
+      const newPassword = data.newPassword;
+
+      const user = newPassword
+        ? await UserRepository.update(id, {
+            ...dataWithoutNewPassword,
+            password: await hash(newPassword, 6),
+          })
+        : await UserRepository.update(id, dataWithoutNewPassword);
 
       res.status(200).json({
         data: user,

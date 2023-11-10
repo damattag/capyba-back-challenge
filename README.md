@@ -35,8 +35,8 @@ This repository is intended for the Capyba Software challenge
 
 ## Bônus
 [] deploy;
-[] admin;
-[] confirmação de senha para alterar a senha;
+[x] admin;
+[x] confirmação de senha para alterar a senha;
 [] cadastro via api do google;
 [] seed;
 

@@ -2,6 +2,7 @@ import {
   UserSchema,
   UserUpdateSchema,
   UserEmailVerificationSchema,
+  UserPasswordResetSchema,
 } from "./User";
 import { PostSchema, PostUpdateSchema, PostGetSchema } from "./Post";
 import {
@@ -20,4 +21,5 @@ export {
   CommentSchema,
   CommentUpdateSchema,
   CommentGetSchema,
+  UserPasswordResetSchema,
 };
