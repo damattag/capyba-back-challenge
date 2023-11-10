@@ -30,7 +30,7 @@ This repository is intended for the Capyba Software challenge
 
 ## Observações
 [] testes unitários;
-[] documentação seguindo OpenAI;
+[x] documentação seguindo OpenAI;
 [x] readme de como rodar o projeto;
 
 ## Bônus

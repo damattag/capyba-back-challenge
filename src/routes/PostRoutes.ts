@@ -1,17 +1,17 @@
 import { Router } from "express";
 import { PostController } from "../controllers";
-import { auth } from "../middlewares";
+import { adminVerify, auth, emailVerify } from "../middlewares";
 
 const PostRouter = Router();
 
 PostRouter.route("/")
-  .post([auth], PostController.create)
+  .post([auth, emailVerify, adminVerify], PostController.create)
   .get([auth], PostController.readAll);
 
 PostRouter.route("/:id")
   .get([auth], PostController.read)
-  .patch([auth], PostController.update)
-  .delete([auth], PostController.delete);
+  .patch([auth, emailVerify, adminVerify], PostController.update)
+  .delete([auth, emailVerify, adminVerify], PostController.delete);
 
 PostRouter.route("/user/:id").get([auth], PostController.readByUser);
 
