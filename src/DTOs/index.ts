@@ -4,6 +4,11 @@ import {
   UserEmailVerificationSchema,
 } from "./User";
 import { PostSchema, PostUpdateSchema, PostGetSchema } from "./Post";
+import {
+  CommentSchema,
+  CommentUpdateSchema,
+  CommentGetSchema,
+} from "./Comment";
 
 export {
   UserSchema,
@@ -12,4 +17,7 @@ export {
   PostUpdateSchema,
   UserEmailVerificationSchema,
   PostGetSchema,
+  CommentSchema,
+  CommentUpdateSchema,
+  CommentGetSchema,
 };

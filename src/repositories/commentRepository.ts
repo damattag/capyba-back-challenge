@@ -203,4 +203,4 @@ class CommentRepository implements ICommentRepository {
   }
 }
 
-export default CommentRepository;
+export default new CommentRepository();
