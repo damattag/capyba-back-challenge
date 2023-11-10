@@ -1,13 +1,19 @@
 import express, { Express } from "express";
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+
 import { errorHandler } from "./middlewares";
-import router from "./routes";
+import swaggerDocument from "./docs";
+import routes from "./routes";
 
 const app: Express = express();
 
 app.use(express.json());
+app.use(cors({ origin: "*" })); // put your front-end url in place of "*" to restrict access
 app.use(express.urlencoded({ extended: true }));
 
-app.use(router);
+app.use(routes);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(errorHandler);
 
