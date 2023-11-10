@@ -54,27 +54,3 @@ export const UserEmailVerificationSchema = z.object({
     .min(6, { message: "O token deve ter 6 caracteres." })
     .max(6, { message: "O token deve ter 6 caracteres." }),
 });
-
-export const UserPasswordResetSchema = UserSchema.omit({
-  name: true,
-  image: true,
-  acceptedTerms: true,
-  role: true,
-})
-  .extend({
-    newPassword: z
-      .string({ required_error: "A nova senha é obrigatória." })
-      .min(8, { message: "A nova senha deve ter no mínimo 8 caracteres." })
-      .regex(/[a-z]/i, {
-        message: "A nova senha deve ter pelo menos uma letra.",
-      })
-      .regex(/[0-9]/, {
-        message: "A nova senha deve ter pelo menos um número.",
-      }),
-  })
-  .refine(
-    (data) => {
-      return data.newPassword !== data.password;
-    },
-    { message: "A nova senha deve ser diferente da senha atual." },
-  );

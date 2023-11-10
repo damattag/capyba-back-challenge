@@ -4,7 +4,6 @@ import createHttpError from "http-errors";
 
 import {
   UserEmailVerificationSchema,
-  UserPasswordResetSchema,
   UserSchema,
   UserUpdateSchema,
 } from "../DTOs";
