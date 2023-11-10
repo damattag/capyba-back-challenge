@@ -38,7 +38,7 @@ This repository is intended for the Capyba Software challenge
 [x] admin;
 [x] confirmação de senha para alterar a senha;
 [] cadastro via api do google;
-[] seed;
+[x] seed;
 
 ## Running the project
 
