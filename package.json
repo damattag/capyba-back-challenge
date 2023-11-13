@@ -11,8 +11,9 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "node build/server.js && yarn prisma migrate deploy",
-    "build": "tsup src --out-dir build",
+    "start": "prisma migrate deploy && node dist/server.js",
+    "build": "tsup src --out-dir dist",
+    "prod": "cross-env NODE_ENV=production yarn build && yarn start",
     "migration": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev",
     "seed": "cross-env DATABASE_HOST='localhost' yarn prisma db seed",
     "migration:reset": "cross-env DATABASE_HOST='localhost' yarn prisma migrate reset --force",
