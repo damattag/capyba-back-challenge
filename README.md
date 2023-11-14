@@ -34,4 +34,9 @@ docker-compose up --build
 yarn migration
 ```
 
-7. Now the server should be running!
+7. To run seed file, run the server and the migrations as described and on terminal, run:
+```bash
+yarn seed
+```
+
+8. Now the server should be running!

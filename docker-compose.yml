@@ -16,7 +16,6 @@ services:
     command: yarn dev
     depends_on:
       - db
-      - test-db
 
   db:
     image: postgres
@@ -32,17 +31,6 @@ services:
       - "${DATABASE_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  test-db:
-    image: postgres
-    container_name: ${PROJECT_NAME}-test-db
-    env_file: .env
-    environment:
-      - POSTGRES_USER=${DATABASE_TEST_USER}
-      - POSTGRES_PASSWORD=${DATABASE_TEST_PASSWORD}
-      - POSTGRES_DB=${DATABASE_TEST_DB}
-    ports:
-      - "${DATABASE_TEST_PORT}:5432"
 
 volumes:
   pgdata:
