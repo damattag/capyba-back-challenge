@@ -1,6 +1,6 @@
 import { Prisma, Comment } from "@prisma/client";
-import { ICommentRepository } from "./IRepositories";
-import prisma from "../database/client";
+import { ICommentRepository } from "../IRepositories";
+import prisma from "../../database/client";
 
 class CommentRepository implements ICommentRepository {
   async create(data: Prisma.CommentUncheckedCreateInput): Promise<Comment> {
@@ -194,12 +194,14 @@ class CommentRepository implements ICommentRepository {
     return comment;
   }
 
-  async delete(id: string): Promise<void> {
-    await prisma.comment.delete({
+  async delete(id: string): Promise<Comment> {
+    const comment = await prisma.comment.delete({
       where: {
         id,
       },
     });
+
+    return comment;
   }
 }
 

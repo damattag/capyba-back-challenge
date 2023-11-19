@@ -45,5 +45,5 @@ export interface ICommentRepository {
     data: Prisma.CommentUncheckedUpdateInput,
   ) => Promise<Comment>;
 
-  delete: (id: string) => Promise<void>;
+  delete: (id: string) => Promise<Comment>;
 }

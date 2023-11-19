@@ -1,5 +1,16 @@
-import UserRepository from "./userRepository";
-import PostRepository from "./postRepository";
-import CommentRepository from "./commentRepository";
+import UserRepository from "./prisma/userRepository";
+import PostRepository from "./prisma/postRepository";
+import CommentRepository from "./prisma/commentRepository";
 
-export { UserRepository, PostRepository, CommentRepository };
+import InMemoryCommentRepository from "./inMemory/inMemoryCommentRepository";
+import InMemoryPostRepository from "./inMemory/inMemoryPostRepository";
+import InMemoryUserRepository from "./inMemory/inMemoryUserRepository";
+
+export {
+  UserRepository,
+  PostRepository,
+  CommentRepository,
+  InMemoryCommentRepository,
+  InMemoryPostRepository,
+  InMemoryUserRepository,
+};
