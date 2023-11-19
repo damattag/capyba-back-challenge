@@ -1,0 +1,21 @@
+name: Test
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 18.16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16
+      - name: Install dependencies and packages
+        run: yarn install
+      - name: Run the test Script
+        run: yarn test:ci

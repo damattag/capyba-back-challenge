@@ -20,7 +20,8 @@
     "migration:no-seed": "cross-env DATABASE_HOST='localhost' yarn prisma migrate dev --skip-seed",
     "studio": "cross-env DATABASE_HOST='localhost' yarn prisma studio",
     "generate": "yarn prisma generate",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:ci": "jest --runInBand --ci"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
