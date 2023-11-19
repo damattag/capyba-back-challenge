@@ -36,6 +36,12 @@ class AuthController {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: _, ...loggedUser } = user;
 
+      res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+      });
+
       res.status(200).json({
         data: {
           user: loggedUser,
@@ -53,6 +59,8 @@ class AuthController {
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
       delete req.headers.authorization;
+
+      res.clearCookie("accessToken");
 
       res.status(204).json({
         message: "Logout realizado com sucesso.",

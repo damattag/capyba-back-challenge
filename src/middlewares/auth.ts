@@ -9,10 +9,16 @@ export default async function auth(
   next: NextFunction,
 ) {
   try {
+    const hasAuthCookie = req.cookies.accessToken;
+
     const authToken = req.headers.authorization;
 
-    if (!authToken) {
+    if (!authToken || !hasAuthCookie) {
       throw createHttpError(401, "Token não encontrado.");
+    }
+
+    if (authToken !== hasAuthCookie) {
+      throw createHttpError(401, "Token inválido.");
     }
 
     const decoded = jwt.verify(authToken, process.env.JWT_SECRET as string);
