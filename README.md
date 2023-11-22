@@ -28,7 +28,38 @@ npm install
 4. Create a **.env** file and copy the following content to it:
 ```dotenv
 
-🚀 in construction... 🛸
+# ###### GENERAL SETTINGS #######
+PROJECT_NAME=capyba-challenge
+
+# ###### SERVER SETTINGS #######
+SERVER_PORT=3001
+NODE_ENV=development
+
+# ###### DATABASE SETTINGS #######
+DATABASE_TYPE=postgres
+DATABASE_HOST=${PROJECT_NAME}-db
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=docker
+DATABASE_DB=${PROJECT_NAME}
+DATABASE_URL=${DATABASE_TYPE}://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DB}
+
+# ###### TEST DATABASE SETTINGS #######
+DATABASE_TEST_TYPE=postgres
+DATABASE_TEST_HOST=localhost
+DATABASE_TEST_PORT=5433
+DATABASE_TEST_USER=postgres
+DATABASE_TEST_PASSWORD=docker
+DATABASE_TEST_DB=${PROJECT_NAME}-test-db
+DATABASE_TEST_URL=postgres://postgres:docker@localhost:5433/capyba-challenge-test
+
+# ###### JWT SETTINGS #######
+JWT_SECRET=secret
+
+# ###### MAIL SETTINGS #######
+EMAIL=teste.damatta@gmail.com
+EMAIL_PASSWORD="bhyp tggt gkbf dpxc"
+
 
 ```
   
