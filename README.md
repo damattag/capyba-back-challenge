@@ -1,6 +1,14 @@
 # capyba-back-challenge
 This repository is intended for the Capyba Software challenge
 
+## Stack for this project
+
+1. Typescript;
+2. Node.Js;
+3. Express;
+4. Jest;
+5. Docker.
+
 ## Running the project
 
 1. Be sure you have **docker/docker-compose** and **yarn** (or **npm**, if you use it) installed.
