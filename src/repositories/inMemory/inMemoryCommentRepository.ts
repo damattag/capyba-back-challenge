@@ -48,14 +48,14 @@ class InMemoryCommentRepository implements ICommentRepository {
 
     const count = comments.length;
 
-    if (orderField) {
-      comments.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   comments.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { comments, count };
   }
@@ -76,14 +76,14 @@ class InMemoryCommentRepository implements ICommentRepository {
 
     const count = comments.length;
 
-    if (orderField) {
-      comments.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   comments.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { comments, count };
   }
@@ -109,14 +109,14 @@ class InMemoryCommentRepository implements ICommentRepository {
 
     const count = comments.length;
 
-    if (orderField) {
-      comments.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   comments.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { comments, count };
   }
@@ -142,14 +142,14 @@ class InMemoryCommentRepository implements ICommentRepository {
 
     const count = comments.length;
 
-    if (orderField) {
-      comments.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   comments.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { comments, count };
   }

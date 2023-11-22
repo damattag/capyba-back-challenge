@@ -48,14 +48,14 @@ class InMemoryPostRepository implements IPostRepository {
 
     const count = posts.length;
 
-    if (orderField) {
-      posts.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   posts.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { posts, count };
   }
@@ -87,14 +87,14 @@ class InMemoryPostRepository implements IPostRepository {
 
     const count = posts.length;
 
-    if (orderField) {
-      posts.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   posts.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { posts, count };
   }
@@ -115,14 +115,14 @@ class InMemoryPostRepository implements IPostRepository {
 
     const count = posts.length;
 
-    if (orderField) {
-      posts.sort((a, b) => {
-        if (order === "asc") {
-          return a[orderField] > b[orderField] ? 1 : -1;
-        }
-        return a[orderField] < b[orderField] ? 1 : -1;
-      });
-    }
+    // if (orderField) {
+    //   posts.sort((a, b) => {
+    //     if (order === "asc") {
+    //       return a[orderField] > b[orderField] ? 1 : -1;
+    //     }
+    //     return a[orderField] < b[orderField] ? 1 : -1;
+    //   });
+    // }
 
     return { posts, count };
   }
