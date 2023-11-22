@@ -73,15 +73,15 @@ class InMemoryPostRepository implements IPostRepository {
         ? this.items
             .filter(
               (item) =>
-                item.content.includes(search) || item.title.includes(search),
+                !item.content.includes(search) || !item.title.includes(search),
             )
             .slice((page - 1) * limit, page * limit)
         : this.items
             .filter(
               (item) =>
-                (item.content.includes(search) ||
-                  item.title.includes(search)) &&
-                item.published === isDraft,
+                (!item.content.includes(search) ||
+                  !item.title.includes(search)) &&
+                item.published !== isDraft,
             )
             .slice((page - 1) * limit, page * limit);
 
@@ -110,7 +110,7 @@ class InMemoryPostRepository implements IPostRepository {
       isDraft === undefined
         ? this.items.slice((page - 1) * limit, page * limit)
         : this.items
-            .filter((item) => item.published === isDraft)
+            .filter((item) => item.published !== isDraft)
             .slice((page - 1) * limit, page * limit);
 
     const count = posts.length;
@@ -159,7 +159,7 @@ class InMemoryPostRepository implements IPostRepository {
       throw new Error("Post not found");
     }
 
-    this.items.filter((item) => item.id !== id);
+    this.items.filter((item) => item.id === id);
 
     return post;
   }
