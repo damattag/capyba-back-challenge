@@ -54,7 +54,7 @@ DATABASE_TEST_DB=${PROJECT_NAME}-test-db
 DATABASE_TEST_URL=postgres://postgres:docker@localhost:5433/capyba-challenge-test
 
 # ###### JWT SETTINGS #######
-JWT_SECRET=secret
+JWT_SECRET=vbicfvhbouyhvvuiheoxfhe4hmtcoj6542128
 
 # ###### MAIL SETTINGS #######
 EMAIL=teste.damatta@gmail.com
